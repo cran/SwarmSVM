@@ -68,27 +68,6 @@ dcsvm.model$valid.score
 dcsvm.model$time$total.time
 
 ## ------------------------------------------------------------------------
-local.file.name = tempfile()
-download.file("http://www.sfu.ca/~hetongh/data/ijcnn1.dcsvm.RData",local.file.name)
-load(local.file.name)
-ijcnn1.t = ijcnn1[[2]]
-ijcnn1 = ijcnn1[[1]]
-
-## ------------------------------------------------------------------------
-dcsvm.model = dcSVM(x = ijcnn1[,-1], y = ijcnn1[,1], k = 10, max.levels = 1, seed = 1024,
-                    early = 1, gamma = 2, cost = 32, tolerance = 1e-2, m = 5000, scale = FALSE,
-                    valid.x = ijcnn1.t[,-1], valid.y = ijcnn1.t[,1])
-dcsvm.model$valid.score
-dcsvm.model$time$total.time
-
-## ------------------------------------------------------------------------
-dcsvm.model = dcSVM(x = ijcnn1[,-1], y = ijcnn1[,1], k = 10, max.levels = 1, seed = 1024,
-                    early = 1, gamma = 2, cost = 32, tolerance = 1e-2, m = 5000, scale = TRUE,
-                    valid.x = ijcnn1.t[,-1], valid.y = ijcnn1.t[,1])
-dcsvm.model$valid.score
-dcsvm.model$time$total.time
-
-## ------------------------------------------------------------------------
 gaterSVM.model = gaterSVM(x = svmguide1[,-1], y = svmguide1[,1], hidden = 10, seed = 0,
                           m = 10, max.iter = 3, learningrate = 0.01, threshold = 1, stepmax = 1000,
                           valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1], verbose = TRUE)
