@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,28 +19,256 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
 
-<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%7D%0Apre%20%7B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 </head>
 
@@ -84,10 +312,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1><span class="header-section-number">2</span> Data</h1>
 <p>In this package, we choose a small data set to demonstrate the usage of our functions. The data set is <code>svmguide1</code> from <a href="http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html">libsvm’s official website</a>. The data is collected from an astroparticle application from Jan Conrad of Uppsala University, Sweden.</p>
 <p>We can load it by</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(SwarmSVM)
-<span class="kw">data</span>(svmguide1)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(SwarmSVM)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(svmguide1)</a></code></pre></div>
 <p>It is a list object. Let’s first take a look at the training data.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(svmguide1[[<span class="dv">1</span>]])</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">head</span>(svmguide1[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>##      [,1]       [,2]      [,3]          [,4]      [,5]
 ## [1,]    1 0.17830158 0.8459425 -0.0003471568 0.5025830
 ## [2,]    1 0.09974321 0.7418535  0.0013642697 0.6631010
@@ -96,7 +324,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [5,]    1 0.26460236 0.3487087 -0.0012692003 0.8991030
 ## [6,]    1 0.13390393 0.6548727 -0.0010820202 0.7437811</code></pre>
 <p>The first column contains the classification target value, the other columns contain the features. It is a binary classification task. The second part in the list is the test set:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(svmguide1[[<span class="dv">2</span>]])</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(svmguide1[[<span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>##      [,1]       [,2]      [,3]         [,4]      [,5]
 ## [1,]    0 0.04233811 0.2196920 -0.003501740 0.9746439
 ## [2,]    0 0.04233811 0.2196920 -0.003501740 0.9746439
@@ -105,8 +333,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## [5,]    0 0.02846241 0.3031386  0.003870255 0.9525135
 ## [6,]    0 0.01345867 0.4843888 -0.002009264 0.8747470</code></pre>
 <p>We rename them with the following command:</p>
-<pre class="sourceCode r"><code class="sourceCode r">svmguide1.t =<span class="st"> </span>svmguide1[[<span class="dv">2</span>]]
-svmguide1 =<span class="st"> </span>svmguide1[[<span class="dv">1</span>]]</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">svmguide1.t =<span class="st"> </span>svmguide1[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">svmguide1 =<span class="st"> </span>svmguide1[[<span class="dv">1</span>]]</a></code></pre></div>
 <p>From now on, we have the training data set <code>svmguide1</code> and the test data set <code>svmguide1.t</code>.</p>
 </div>
 <div id="clustering-algorithm" class="section level1">
@@ -153,17 +381,17 @@ svmguide1 =<span class="st"> </span>svmguide1[[<span class="dv">1</span>]]</code
 <div id="basic-usage" class="section level4">
 <h4><span class="header-section-number">4.0.0.2</span> Basic usage</h4>
 <p>We demonstrate the usage of this function with the following code:</p>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,-<span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,
-                      <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>],<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], 
-                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</code></pre>
-<pre><code>## Time for Clustering: 0.004 secs</code></pre>
-<pre><code>## Time for Transforming: 0.016 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.226 secs</code></pre>
-<pre><code>## Time for Validation: 0.0169999999999999 secs</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>],<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
+<pre><code>## Time for Clustering: 0.00500000000000034 secs</code></pre>
+<pre><code>## Time for Transforming: 0.0149999999999997 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.115 secs</code></pre>
+<pre><code>## Time for Validation: 0.0300000000000002 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.265 secs</code></pre>
+## Total Time: 0.167 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj$valid.score</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
 <p>Here the parameters are grouped into four parts:</p>
 <ol style="list-style-type: decimal">
@@ -174,45 +402,45 @@ svmguide1 =<span class="st"> </span>svmguide1[[<span class="dv">1</span>]]</code
 </ol>
 <p><strong>Dense and sparse input</strong></p>
 <p>The sample data set is in the format of sparse matrix.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(svmguide1)</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">class</span>(svmguide1)</a></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 <p>The function takes a dense matrix or a sparse matrix as the input feature matrix. Therefore the following code gives you the same result.</p>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,-<span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,
-                      <span class="dt">valid.x =</span> <span class="kw">as.matrix</span>(svmguide1.t[,-<span class="dv">1</span>]),<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], 
-                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">                      <span class="dt">valid.x =</span> <span class="kw">as.matrix</span>(svmguide1.t[,<span class="op">-</span><span class="dv">1</span>]),<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
 <pre><code>## Time for Clustering: 0.004 secs</code></pre>
-<pre><code>## Time for Transforming: 0.00600000000000001 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.238 secs</code></pre>
-<pre><code>## Time for Validation: 0.0130000000000003 secs</code></pre>
+<pre><code>## Time for Transforming: 0.00499999999999989 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.127 secs</code></pre>
+<pre><code>## Time for Validation: 0.0449999999999999 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.261 secs</code></pre>
+## Total Time: 0.183 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj$valid.score</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
 <p><strong>Self-defined clustering algorithm</strong></p>
 <p>In <code>clusterSVM</code>, the clustering is a very important step. Therefore we don’t restrict users to the <code>RcppMLPACK::mlKmeans</code> algorithm. Instead, we accept user-defined clustering algorithm as an argument.</p>
 <p>Note that we require the output of the clustering algorithm contains two fields: <code>centers</code> and <code>cluster</code>. One example could be</p>
-<pre class="sourceCode r"><code class="sourceCode r">cluster.fun =<span class="st"> </span>stats::kmeans
-
-cluster.predict =<span class="st"> </span>function(x, cluster.object) {
-  centers =<span class="st"> </span>cluster.object$centers
-  eucliDist =<span class="st"> </span>function(x, centers) <span class="kw">apply</span>(centers, <span class="dv">1</span>, function(C) <span class="kw">colSums</span>( (<span class="kw">t</span>(x)-C)^<span class="dv">2</span> ))
-  euclidean.dist =<span class="st"> </span><span class="kw">eucliDist</span>(x, centers)
-  result =<span class="st"> </span><span class="kw">max.col</span>(-euclidean.dist)
-  <span class="kw">return</span>(result)
-}</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">cluster.fun =<span class="st"> </span>stats<span class="op">::</span>kmeans</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">cluster.predict =<span class="st"> </span><span class="cf">function</span>(x, cluster.object) {</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">  centers =<span class="st"> </span>cluster.object<span class="op">$</span>centers</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">  eucliDist =<span class="st"> </span><span class="cf">function</span>(x, centers) <span class="kw">apply</span>(centers, <span class="dv">1</span>, <span class="cf">function</span>(C) <span class="kw">colSums</span>( (<span class="kw">t</span>(x)<span class="op">-</span>C)<span class="op">^</span><span class="dv">2</span> ))</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">  euclidean.dist =<span class="st"> </span><span class="kw">eucliDist</span>(x, centers)</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">  result =<span class="st"> </span><span class="kw">max.col</span>(<span class="op">-</span>euclidean.dist)</a>
+<a class="sourceLine" id="cb27-8" data-line-number="8">  <span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb27-9" data-line-number="9">}</a></code></pre></div>
 <p>Here we use the default kmeans, and implement the prediction function. Once we have defined the algorithm, it is straight forward to pass it to <code>clusterSVM</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,-<span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">centers =</span> <span class="dv">8</span>, <span class="dt">seed =</span> <span class="dv">1</span>,
-                      <span class="dt">cluster.fun =</span> cluster.fun, <span class="dt">cluster.predict =</span> cluster.predict,
-                      <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">centers =</span> <span class="dv">8</span>, <span class="dt">seed =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">                      <span class="dt">cluster.fun =</span> cluster.fun, <span class="dt">cluster.predict =</span> cluster.predict,</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## Time for Clustering: 0.004 secs</code></pre>
-<pre><code>## Time for Transforming: 0.004 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.112 secs</code></pre>
-<pre><code>## Time for Validation: 0.012 secs</code></pre>
+<pre><code>## Time for Transforming: 0.00300000000000011 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.183 secs</code></pre>
+<pre><code>## Time for Validation: 0.00599999999999978 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.133 secs</code></pre>
+## Total Time: 0.198 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">csvm.obj$valid.score</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
 </div>
 </div>
@@ -255,19 +483,19 @@ cluster.predict =<span class="st"> </span>function(x, cluster.object) {
 <div id="basic-usage-1" class="section level4">
 <h4><span class="header-section-number">5.0.0.2</span> Basic usage</h4>
 <p>We demonstrate the usage of this function with the following code:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> svmguide1[,-<span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>],
-                    <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">max.levels =</span> <span class="dv">4</span>, <span class="dt">seed =</span> <span class="dv">0</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">gamma =</span> <span class="dv">2</span>,
-                    <span class="dt">kernel =</span> <span class="dv">3</span>,<span class="dt">early =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">800</span>,
-                    <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</code></pre>
-<pre><code>## Finished clustering process in 0.0600000000000001 secs.</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">max.levels =</span> <span class="dv">4</span>, <span class="dt">seed =</span> <span class="dv">0</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">gamma =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">                    <span class="dt">kernel =</span> <span class="dv">3</span>,<span class="dt">early =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">800</span>,</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.0430000000000001 secs.</code></pre>
 <pre><code>## Finished training in level 4</code></pre>
 <pre><code>## Finished training in level 3</code></pre>
 <pre><code>## Finished training in level 2</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.895 secs.</code></pre>
-<pre><code>## Finished validation process in 0.147 secs.</code></pre>
-<pre><code>## Finished the whole process in 1.105 secs.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model$valid.score</code></pre>
+<pre><code>## Finished svm training process in 0.789 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0739999999999998 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.907 secs.</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.85975</code></pre>
 <p>Here the parameters can be grouped into five parts.</p>
 <ol style="list-style-type: decimal">
@@ -279,37 +507,37 @@ cluster.predict =<span class="st"> </span>function(x, cluster.object) {
 </ol>
 <p><strong>Early Prediction</strong></p>
 <p>We can do the early prediction by the following command:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,-<span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], 
-                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, 
-                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, 
-                    <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</code></pre>
-<pre><code>## Finished clustering process in 0.00800000000000001 secs.</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, </a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.00700000000000012 secs.</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.097 secs.</code></pre>
-<pre><code>## Finished validation process in 0.0260000000000002 secs.</code></pre>
-<pre><code>## Finished the whole process in 0.132 secs.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model$valid.score</code></pre>
+<pre><code>## Finished svm training process in 0.0659999999999998 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0390000000000001 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.112 secs.</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.85525</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model$time$total.time</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##   0.132</code></pre>
+##   0.112</code></pre>
 <p>It is faster because we can stop at a level, and don’t need to train SVMs for data of larger size.</p>
 <p><strong>Exact Prediction</strong></p>
 <p>To make the model more accurate, we can also perform the exact training by:</p>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,-<span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], 
-                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, 
-                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, 
-                    <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</code></pre>
-<pre><code>## Finished clustering process in 0.0089999999999999 secs.</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, </a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.004 secs.</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.101 secs.</code></pre>
-<pre><code>## Finished validation process in 0.0270000000000001 secs.</code></pre>
-<pre><code>## Finished the whole process in 0.139 secs.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model$valid.score</code></pre>
+<pre><code>## Finished svm training process in 0.0719999999999996 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0170000000000003 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.0950000000000002 secs.</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.87175</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">dcsvm.model$time$total.time</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##   0.139</code></pre>
+##   0.095</code></pre>
 <p>This is more accurate but the time is longer. It a balance between the accuracy and the time complexity.</p>
 </div>
 </div>
@@ -320,8 +548,8 @@ cluster.predict =<span class="st"> </span>function(x, cluster.object) {
 <p>The algorithm can be described in the following iterative framework:</p>
 <p><strong>Training</strong></p>
 <ol style="list-style-type: decimal">
-<li>Split the data into <span class="math">\(M\)</span> random subsets of nearly <span class="math">\(N/M\)</span>.</li>
-<li>Train <span class="math">\(M\)</span> svm experts seperately on each subset.</li>
+<li>Split the data into <span class="math inline">\(M\)</span> random subsets of nearly <span class="math inline">\(N/M\)</span>.</li>
+<li>Train <span class="math inline">\(M\)</span> svm experts seperately on each subset.</li>
 <li>Each svm expert predict on the entire training data set.</li>
 <li>Train a neural network model minimizing the Eq. (7) in the original paper.</li>
 <li>Reconstruct subsets: Ffor each data point
@@ -333,15 +561,15 @@ cluster.predict =<span class="st"> </span>function(x, cluster.object) {
 </ol>
 <p><strong>Test</strong></p>
 <ol style="list-style-type: decimal">
-<li>Make prediction on the test data by the <span class="math">\(M\)</span> experts.</li>
+<li>Make prediction on the test data by the <span class="math inline">\(M\)</span> experts.</li>
 <li>Make prediction on the experts’ output by the trained neural network model.</li>
 </ol>
 </div>
 <div id="basic-usage-2" class="section level4">
 <h4><span class="header-section-number">6.0.0.2</span> Basic usage</h4>
-<pre class="sourceCode r"><code class="sourceCode r">gaterSVM.model =<span class="st"> </span><span class="kw">gaterSVM</span>(<span class="dt">x =</span> svmguide1[,-<span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">hidden =</span> <span class="dv">10</span>, <span class="dt">seed =</span> <span class="dv">0</span>,
-                          <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">max.iter =</span> <span class="dv">3</span>, <span class="dt">learningrate =</span> <span class="fl">0.01</span>, <span class="dt">threshold =</span> <span class="dv">1</span>, <span class="dt">stepmax =</span> <span class="dv">1000</span>,
-                          <span class="dt">valid.x =</span> svmguide1.t[,-<span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">gaterSVM.model =<span class="st"> </span><span class="kw">gaterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">hidden =</span> <span class="dv">10</span>, <span class="dt">seed =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2">                          <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">max.iter =</span> <span class="dv">3</span>, <span class="dt">learningrate =</span> <span class="fl">0.01</span>, <span class="dt">threshold =</span> <span class="dv">1</span>, <span class="dt">stepmax =</span> <span class="dv">1000</span>,</a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">                          <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Finished training for expert 1</code></pre>
 <pre><code>## Finished training for expert 2</code></pre>
 <pre><code>## Finished training for expert 3</code></pre>
@@ -352,7 +580,7 @@ cluster.predict =<span class="st"> </span>function(x, cluster.object) {
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.295</code></pre>
+<pre><code>## Experts Training Time: 0.352</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.5650293711      , threshold: 16.02876821    , min threshold: 16.02876821
 Step: 2     Loss: 0.5597721086      , threshold: 16.82369081    , min threshold: 16.02876821
@@ -1354,7 +1582,7 @@ Step: 997   Loss: 0.209568471       , threshold: 2.491872607    , min threshold:
 Step: 998   Loss: 0.2095517281      , threshold: 3.314019775    , min threshold: 1.623312244
 Step: 999   Loss: 0.2095334246      , threshold: 1.972286846    , min threshold: 1.623312244</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 8.068</code></pre>
+<pre><code>## Gater Neural Net Training Time: 5.644</code></pre>
 <pre><code>## Finished training for expert 1</code></pre>
 <pre><code>## Finished training for expert 2</code></pre>
 <pre><code>## Finished training for expert 3</code></pre>
@@ -1365,7 +1593,7 @@ Step: 999   Loss: 0.2095334246      , threshold: 1.972286846    , min threshold:
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.247</code></pre>
+<pre><code>## Experts Training Time: 0.116</code></pre>
 <pre><code>## 
 Step: 1     Loss: 1.772209883       , threshold: 1495.083676    , min threshold: 1156.000887
 Step: 2     Loss: 0.6936396956      , threshold: 973.8695993    , min threshold: 973.8695993
@@ -2367,7 +2595,7 @@ Step: 997   Loss: 0.1833467825      , threshold: 3.105717667    , min threshold:
 Step: 998   Loss: 0.1833210439      , threshold: 3.127007425    , min threshold: 2.387188069
 Step: 999   Loss: 0.1832931797      , threshold: 4.306347631    , min threshold: 2.387188069</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 9.23</code></pre>
+<pre><code>## Gater Neural Net Training Time: 5.77</code></pre>
 <pre><code>## Finished training for expert 1</code></pre>
 <pre><code>## Finished training for expert 2</code></pre>
 <pre><code>## Finished training for expert 3</code></pre>
@@ -2378,7 +2606,7 @@ Step: 999   Loss: 0.1832931797      , threshold: 4.306347631    , min threshold:
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.248999999999999</code></pre>
+<pre><code>## Experts Training Time: 0.15</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.6545592006      , threshold: 115.3055597    , min threshold: 115.3055597
 Step: 2     Loss: 0.5966421018      , threshold: 23.02656969    , min threshold: 23.02656969
@@ -3380,10 +3608,10 @@ Step: 997   Loss: 0.1794202623      , threshold: 7.411349001    , min threshold:
 Step: 998   Loss: 0.1794034105      , threshold: 7.460689256    , min threshold: 2.141756661
 Step: 999   Loss: 0.1793857085      , threshold: 7.280830736    , min threshold: 2.141756661</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 8.487</code></pre>
-<pre><code>## Finished validation process in 0.257999999999999 secs.</code></pre>
-<pre><code>## Finished the whole process in 26.884 secs.</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">gaterSVM.model$valid.score</code></pre>
+<pre><code>## Gater Neural Net Training Time: 5.759</code></pre>
+<pre><code>## Finished validation process in 0.166 secs.</code></pre>
+<pre><code>## Finished the whole process in 17.999 secs.</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">gaterSVM.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.925</code></pre>
 <p>The parameters can be categorized into the following groups:</p>
 <ol style="list-style-type: decimal">
@@ -3418,7 +3646,7 @@ Step: 999   Loss: 0.1793857085      , threshold: 7.280830736    , min threshold:
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
