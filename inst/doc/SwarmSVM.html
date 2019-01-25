@@ -384,12 +384,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>],<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
-<pre><code>## Time for Clustering: 0.00500000000000034 secs</code></pre>
-<pre><code>## Time for Transforming: 0.0149999999999997 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.115 secs</code></pre>
-<pre><code>## Time for Validation: 0.0300000000000002 secs</code></pre>
+<pre><code>## Time for Clustering: 0.004 secs</code></pre>
+<pre><code>## Time for Transforming: 0.0299999999999998 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.155 secs</code></pre>
+<pre><code>## Time for Validation: 0.0170000000000001 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.167 secs</code></pre>
+## Total Time: 0.206 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
@@ -408,12 +408,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">                      <span class="dt">valid.x =</span> <span class="kw">as.matrix</span>(svmguide1.t[,<span class="op">-</span><span class="dv">1</span>]),<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
 <a class="sourceLine" id="cb18-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
-<pre><code>## Time for Clustering: 0.004 secs</code></pre>
-<pre><code>## Time for Transforming: 0.00499999999999989 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.127 secs</code></pre>
-<pre><code>## Time for Validation: 0.0449999999999999 secs</code></pre>
+<pre><code>## Time for Clustering: 0.00300000000000011 secs</code></pre>
+<pre><code>## Time for Transforming: 0.004 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.155 secs</code></pre>
+<pre><code>## Time for Validation: 0.012 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.183 secs</code></pre>
+## Total Time: 0.176 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
@@ -434,11 +434,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb28-2" data-line-number="2">                      <span class="dt">cluster.fun =</span> cluster.fun, <span class="dt">cluster.predict =</span> cluster.predict,</a>
 <a class="sourceLine" id="cb28-3" data-line-number="3">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## Time for Clustering: 0.004 secs</code></pre>
-<pre><code>## Time for Transforming: 0.00300000000000011 secs</code></pre>
-<pre><code>## Time for Liblinear: 0.183 secs</code></pre>
+<pre><code>## Time for Transforming: 0.00499999999999989 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.121 secs</code></pre>
 <pre><code>## Time for Validation: 0.00599999999999978 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.198 secs</code></pre>
+## Total Time: 0.138 secs</code></pre>
 <pre><code>## Accuracy Score: 0.816</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.816</code></pre>
@@ -487,14 +487,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb37-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">max.levels =</span> <span class="dv">4</span>, <span class="dt">seed =</span> <span class="dv">0</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">gamma =</span> <span class="dv">2</span>,</a>
 <a class="sourceLine" id="cb37-3" data-line-number="3">                    <span class="dt">kernel =</span> <span class="dv">3</span>,<span class="dt">early =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">800</span>,</a>
 <a class="sourceLine" id="cb37-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
-<pre><code>## Finished clustering process in 0.0430000000000001 secs.</code></pre>
+<pre><code>## Finished clustering process in 0.0409999999999999 secs.</code></pre>
 <pre><code>## Finished training in level 4</code></pre>
 <pre><code>## Finished training in level 3</code></pre>
 <pre><code>## Finished training in level 2</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.789 secs.</code></pre>
-<pre><code>## Finished validation process in 0.0739999999999998 secs.</code></pre>
-<pre><code>## Finished the whole process in 0.907 secs.</code></pre>
+<pre><code>## Finished svm training process in 0.6 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0670000000000002 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.708 secs.</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.85975</code></pre>
 <p>Here the parameters can be grouped into five parts.</p>
@@ -511,16 +511,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb48-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb48-3" data-line-number="3">                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, </a>
 <a class="sourceLine" id="cb48-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
-<pre><code>## Finished clustering process in 0.00700000000000012 secs.</code></pre>
+<pre><code>## Finished clustering process in 0.004 secs.</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.0659999999999998 secs.</code></pre>
-<pre><code>## Finished validation process in 0.0390000000000001 secs.</code></pre>
-<pre><code>## Finished the whole process in 0.112 secs.</code></pre>
+<pre><code>## Finished svm training process in 0.0640000000000001 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0140000000000002 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.0820000000000003 secs.</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.85525</code></pre>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##   0.112</code></pre>
+##   0.082</code></pre>
 <p>It is faster because we can stop at a level, and don’t need to train SVMs for data of larger size.</p>
 <p><strong>Exact Prediction</strong></p>
 <p>To make the model more accurate, we can also perform the exact training by:</p>
@@ -530,14 +530,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## Finished clustering process in 0.004 secs.</code></pre>
 <pre><code>## Finished training in level 1</code></pre>
-<pre><code>## Finished svm training process in 0.0719999999999996 secs.</code></pre>
-<pre><code>## Finished validation process in 0.0170000000000003 secs.</code></pre>
-<pre><code>## Finished the whole process in 0.0950000000000002 secs.</code></pre>
+<pre><code>## Finished svm training process in 0.0779999999999998 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0150000000000001 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.0989999999999998 secs.</code></pre>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.87175</code></pre>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##   0.095</code></pre>
+##   0.099</code></pre>
 <p>This is more accurate but the time is longer. It a balance between the accuracy and the time complexity.</p>
 </div>
 </div>
@@ -580,7 +580,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.352</code></pre>
+<pre><code>## Experts Training Time: 0.182</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.5650293711      , threshold: 16.02876821    , min threshold: 16.02876821
 Step: 2     Loss: 0.5597721086      , threshold: 16.82369081    , min threshold: 16.02876821
@@ -1582,7 +1582,7 @@ Step: 997   Loss: 0.209568471       , threshold: 2.491872607    , min threshold:
 Step: 998   Loss: 0.2095517281      , threshold: 3.314019775    , min threshold: 1.623312244
 Step: 999   Loss: 0.2095334246      , threshold: 1.972286846    , min threshold: 1.623312244</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 5.644</code></pre>
+<pre><code>## Gater Neural Net Training Time: 4.478</code></pre>
 <pre><code>## Finished training for expert 1</code></pre>
 <pre><code>## Finished training for expert 2</code></pre>
 <pre><code>## Finished training for expert 3</code></pre>
@@ -1593,7 +1593,7 @@ Step: 999   Loss: 0.2095334246      , threshold: 1.972286846    , min threshold:
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.116</code></pre>
+<pre><code>## Experts Training Time: 0.0940000000000003</code></pre>
 <pre><code>## 
 Step: 1     Loss: 1.772209883       , threshold: 1495.083676    , min threshold: 1156.000887
 Step: 2     Loss: 0.6936396956      , threshold: 973.8695993    , min threshold: 973.8695993
@@ -2595,7 +2595,7 @@ Step: 997   Loss: 0.1833467825      , threshold: 3.105717667    , min threshold:
 Step: 998   Loss: 0.1833210439      , threshold: 3.127007425    , min threshold: 2.387188069
 Step: 999   Loss: 0.1832931797      , threshold: 4.306347631    , min threshold: 2.387188069</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 5.77</code></pre>
+<pre><code>## Gater Neural Net Training Time: 4.667</code></pre>
 <pre><code>## Finished training for expert 1</code></pre>
 <pre><code>## Finished training for expert 2</code></pre>
 <pre><code>## Finished training for expert 3</code></pre>
@@ -2606,7 +2606,7 @@ Step: 999   Loss: 0.1832931797      , threshold: 4.306347631    , min threshold:
 <pre><code>## Finished training for expert 8</code></pre>
 <pre><code>## Finished training for expert 9</code></pre>
 <pre><code>## Finished training for expert 10</code></pre>
-<pre><code>## Experts Training Time: 0.15</code></pre>
+<pre><code>## Experts Training Time: 0.133000000000001</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.6545592006      , threshold: 115.3055597    , min threshold: 115.3055597
 Step: 2     Loss: 0.5966421018      , threshold: 23.02656969    , min threshold: 23.02656969
@@ -3608,9 +3608,9 @@ Step: 997   Loss: 0.1794202623      , threshold: 7.411349001    , min threshold:
 Step: 998   Loss: 0.1794034105      , threshold: 7.460689256    , min threshold: 2.141756661
 Step: 999   Loss: 0.1793857085      , threshold: 7.280830736    , min threshold: 2.141756661</code></pre>
 <pre><code>## Finish gater training.</code></pre>
-<pre><code>## Gater Neural Net Training Time: 5.759</code></pre>
-<pre><code>## Finished validation process in 0.166 secs.</code></pre>
-<pre><code>## Finished the whole process in 17.999 secs.</code></pre>
+<pre><code>## Gater Neural Net Training Time: 4.485</code></pre>
+<pre><code>## Finished validation process in 0.116 secs.</code></pre>
+<pre><code>## Finished the whole process in 14.168 secs.</code></pre>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">gaterSVM.model<span class="op">$</span>valid.score</a></code></pre></div>
 <pre><code>## [1] 0.925</code></pre>
 <p>The parameters can be categorized into the following groups:</p>

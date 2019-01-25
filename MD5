@@ -1,7 +1,7 @@
-25d1636437501b7f9a66370a07bf9aee *DESCRIPTION
+585c90d6d239338d7b10b425c6672756 *DESCRIPTION
 a76d3242482c0190accdac98e7f50fd3 *NAMESPACE
 f905892dfcf11e4300a9cad61dfa2d23 *R/SwarmSVM.R
-18e669c2de8c251e84b9aad7d14e1634 *R/alphasvm.R
+9d465e2b88ec303bb3e482dd93dc820e *R/alphasvm.R
 1605958f0407d6711e72d3796e8f2766 *R/clusterSVM.R
 c2079b0643cf0259d3b55bd8c1e631ff *R/compute.r
 a30d9adf045be31eda6dfee94b437e94 *R/dcSVM.R
@@ -12,7 +12,7 @@ e18ab00d6902bb4d80e4b2c359590ced *R/neuralnet.r
 3e0766fe75f8834531917f3997fb058e *R/utils.R
 522afe107c669171284414017770fb05 *R/zzz.R
 080366e61527d99160462ff156906e93 *README.md
-0a46707b35aa22d99649103dcfc1a0e7 *build/vignette.rds
+61fe9d733a79df70c3ad0fb36b2afcf2 *build/vignette.rds
 76d65573aeab3355049d4a991d491006 *data/svmguide1.RData
 8bb9f8d54979e647c95e8ad1c52cf98f *inst/benchmark/clustered_SVM.R
 33be04952595f9ed4fe573102a4222b9 *inst/benchmark/clustered_SVM_Repeat.R
@@ -22,7 +22,7 @@ b21c9e83f5e52cc9d4bbe32b981c4c4e *inst/benchmark/dc_SVM.R
 5a2cfd448e544e563613b822bbd7307c *inst/benchmark/utils.R
 fdb68461df0d5106eb6d78bb5d31d49d *inst/doc/SwarmSVM.R
 11dbc1256af8a50cf4ce7ea7ba1f64e6 *inst/doc/SwarmSVM.Rmd
-f512bdd8cfeff9fb89ba32141fb892b7 *inst/doc/SwarmSVM.html
+276afe290b80113dfb330bd7f00bceca *inst/doc/SwarmSVM.html
 789f9040c07f892347aa2b9a7e8550b2 *man/SwarmSVM.Rd
 754a45b56625711d4f08fa9330073e98 *man/alphasvm.Rd
 4f522feadeb65da034e2d1c080c34620 *man/cluster.fun.kkmeans.Rd
@@ -45,8 +45,8 @@ b1a313a1bc5f84359f641833c478972f *man/predict.gaterSVM.Rd
 81449c29094426e6e09845b1e8fa3487 *man/write.alphasvm.Rd
 129ff830ddc454c5648a096cdd9b9edc *src/Rsvm.c
 1de6a366aa7ab9fa92ace155d7b1b841 *src/init.c
-bd8e1b4ad502001272887f7b40fa6b43 *src/svm.cpp
-b6cd63542544395bf9e8099c59275fa4 *src/svm.h
+dedd71ac5dbb5264440980e6bf8b0872 *src/svm.cpp
+d43f8a8959a03f7f01f046bbc4a7c287 *src/svm.h
 f41596b81457626e081977e0cc847818 *tests/testthat.R
 04e583c84f9fb89240675cefbf6ad5d3 *tests/testthat/test_alphasvm.R
 d2c67dcc91c655b487c3b55a90f4577e *tests/testthat/test_clusterSVM.R
