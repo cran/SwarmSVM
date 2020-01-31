@@ -11,15 +11,41 @@
 \usage{
 alphasvm(x, ...)
 
-\method{alphasvm}{formula}(formula, data = NULL, ..., subset,
-  na.action = stats::na.omit, scale = FALSE)
+\method{alphasvm}{formula}(
+  formula,
+  data = NULL,
+  ...,
+  subset,
+  na.action = stats::na.omit,
+  scale = FALSE
+)
 
-\method{alphasvm}{default}(x, y = NULL, scale = FALSE, type = NULL,
-  kernel = "radial", degree = 3, gamma = if (is.vector(x)) 1 else
-  1/ncol(x), coef0 = 0, cost = 1, nu = 0.5, class.weights = NULL,
-  cachesize = 40, tolerance = 0.001, epsilon = 0.1, shrinking = TRUE,
-  cross = 0, probability = FALSE, fitted = TRUE, alpha = NULL,
-  mute = TRUE, nclass = NULL, ..., subset, na.action = stats::na.omit)
+\method{alphasvm}{default}(
+  x,
+  y = NULL,
+  scale = FALSE,
+  type = NULL,
+  kernel = "radial",
+  degree = 3,
+  gamma = if (is.vector(x)) 1 else 1/ncol(x),
+  coef0 = 0,
+  cost = 1,
+  nu = 0.5,
+  class.weights = NULL,
+  cachesize = 40,
+  tolerance = 0.001,
+  epsilon = 0.1,
+  shrinking = TRUE,
+  cross = 0,
+  probability = FALSE,
+  fitted = TRUE,
+  alpha = NULL,
+  mute = TRUE,
+  nclass = NULL,
+  ...,
+  subset,
+  na.action = stats::na.omit
+)
 
 \method{print}{alphasvm}(x, ...)
 
@@ -114,12 +140,6 @@ A numerical vector for binary classification or a nx(k-1) matrix for a k-class-c
 }
 \description{
 alphasvm is used to train a support vector machine. It can be used to carry out general regression and classification (of nu and epsilon-type), as well as density-estimation. A formula interface is provided.
-
-Print alphasvm object
-
-Summary alphasvm object
-
-Print summary.alphasvm object
 }
 \details{
 For multiclass-classification with k levels, k>2, \code{libsvm} uses the
