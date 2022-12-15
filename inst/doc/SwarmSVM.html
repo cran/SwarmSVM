@@ -1,469 +1,503 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Introduction</title>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<script type="text/javascript">
-window.onload = function() {
-  var imgs = document.getElementsByTagName('img'), i, img;
-  for (i = 0; i < imgs.length; i++) {
-    img = imgs[i];
-    // center an image if it is the only element of its parent
-    if (img.parentElement.childElementCount === 1)
-      img.parentElement.style.textAlign = 'center';
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Tong He" />
+
+
+<title>SwarmSVM</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
-};
-</script>
-
-<!-- Styles for R syntax highlighter -->
-<style type="text/css">
-   pre .operator,
-   pre .paren {
-     color: rgb(104, 118, 135)
-   }
-
-   pre .literal {
-     color: #990073
-   }
-
-   pre .number {
-     color: #099;
-   }
-
-   pre .comment {
-     color: #998;
-     font-style: italic
-   }
-
-   pre .keyword {
-     color: #900;
-     font-weight: bold
-   }
-
-   pre .identifier {
-     color: rgb(0, 0, 0);
-   }
-
-   pre .string {
-     color: #d14;
-   }
+  .sourceCode {
+    overflow: visible;
+  }
 </style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
-<!-- R syntax highlighter -->
-<script type="text/javascript">
-var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
-hljs.initHighlightingOnLoad();
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
 
-<!-- MathJax scripts -->
-<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
 
 
-<style type="text/css">
-body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 13px;
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
 }
-
-body {
-  max-width: 800px;
-  margin: auto;
-  padding: 1em;
-  line-height: 20px;
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
 }
-
-tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
 }
-
-h1 {
-   font-size:2.2em;
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
 }
-
-h2 {
-   font-size:1.8em;
+#TOC ul ul {
+margin-left: -2em;
 }
-
-h3 {
-   font-size:1.4em;
+#TOC li {
+line-height: 16px;
 }
-
-h4 {
-   font-size:1.0em;
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
 }
-
-h5 {
-   font-size:0.9em;
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
 }
-
-h6 {
-   font-size:0.8em;
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
 }
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
 }
-
-pre, img {
-  max-width: 100%;
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
 }
 pre {
-  overflow-x: auto;
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
 }
-pre code {
-   display: block; padding: 0.5em;
+pre:not([class]) {
+background-color: #f7f7f7;
 }
-
 code {
-  font-size: 92%;
-  border: 1px solid #ccc;
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
 }
-
-code[class] {
-  background-color: #F8F8F8;
+p > code, li > code {
+padding: 2px 0px;
 }
-
-table, td, th {
-  border: none;
+div.figure {
+text-align: center;
 }
-
-blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
 }
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
 }
-
-@media print {
-   * {
-      background: transparent !important;
-      color: black !important;
-      filter:none !important;
-      -ms-filter: none !important;
-   }
-
-   body {
-      font-size:12pt;
-      max-width:100%;
-   }
-
-   a, a:visited {
-      text-decoration: underline;
-   }
-
-   hr {
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote {
-      padding-right: 1em;
-      page-break-inside: avoid;
-   }
-
-   tr, img {
-      page-break-inside: avoid;
-   }
-
-   img {
-      max-width: 100% !important;
-   }
-
-   @page :left {
-      margin: 15mm 20mm 15mm 10mm;
-   }
-
-   @page :right {
-      margin: 15mm 10mm 15mm 20mm;
-   }
-
-   p, h2, h3 {
-      orphans: 3; widows: 3;
-   }
-
-   h2, h3 {
-      page-break-after: avoid;
-   }
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
 }
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
+
 
 
 
 </head>
 
 <body>
-<h1>Introduction</h1>
 
+
+
+
+<h1 class="title toc-ignore">SwarmSVM</h1>
+<h4 class="author">Tong He</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#data"><span class="toc-section-number">2</span> Data</a></li>
+<li><a href="#clustering-algorithm"><span class="toc-section-number">3</span> Clustering Algorithm</a></li>
+<li><a href="#clustered-support-vector-machines"><span class="toc-section-number">4</span> Clustered Support Vector Machines</a></li>
+<li><a href="#a-divide-and-conquer-support-vector-machine"><span class="toc-section-number">5</span> A Divide-and-Conquer Support Vector Machine</a></li>
+<li><a href="#the-mixture-of-svm-experts-with-a-gater-function"><span class="toc-section-number">6</span> The Mixture of SVM Experts with a Gater Function</a></li>
+<li><a href="#benchmarking"><span class="toc-section-number">7</span> Benchmarking</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <p>This package contains several ensemble learning algorithms based on the following papers:</p>
-
-<ol>
-<li>Gu, Q., &amp; Han, J. (2013). Clustered support vector machines. In proceedings of the sixteenth international conference on artificial intelligence and statistics (pp. 307-315).</li>
+<ol style="list-style-type: decimal">
+<li>Gu, Q., &amp; Han, J. (2013). Clustered support vector machines. In proceedings of the sixteenth international conference on artificial intelligence and statistics (pp. 307-315).</li>
 <li>Hsieh, C. J., Si, S., &amp; Dhillon, I. S. (2013). A divide-and-conquer solver for kernel support vector machines. arXiv preprint arXiv:1311.0914.</li>
 <li>Collobert, R., Bengio, S., &amp; Bengio, Y. (2002). A parallel mixture of SVMs for very large scale problems. Neural computation, 14(5), 1105-1114.</li>
 </ol>
-
 <p>The main idea of these algorithms are</p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li>Reducing the scale of the data set results in a faster algorithm.</li>
 <li>If we divide a linear inseperable problem into smaller sub-problems appropriately, then it is possible to solve it by linear SVMs.</li>
 </ol>
-
 <p>These two ideas focus on the efficiency and accuracy respectively. Specifically, we usually use more than one SVM model to solve the whole problem, therefore this is also an ensemble learning framework.</p>
-
-<h1>Data</h1>
-
-<p>In this package, we choose a small data set to demonstrate the usage of our functions. The data set is <code>svmguide1</code> from <a href="http://www.csie.ntu.edu.tw/%7Ecjlin/libsvmtools/datasets/binary.html">libsvm&#39;s official website</a>. The data is collected from an astroparticle application from Jan Conrad of Uppsala University, Sweden.</p>
-
-<p>We can load it by </p>
-
-<pre><code class="r">require(SwarmSVM)
-data(svmguide1)
-</code></pre>
-
-<p>It is a list object. Let&#39;s first take a look at the training data.</p>
-
-<pre><code class="r">head(svmguide1[[1]])
-</code></pre>
-
+</div>
+<div id="data" class="section level1">
+<h1><span class="header-section-number">2</span> Data</h1>
+<p>In this package, we choose a small data set to demonstrate the usage of our functions. The data set is <code>svmguide1</code> from <a href="https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html">libsvm’s official website</a>. The data is collected from an astroparticle application from Jan Conrad of Uppsala University, Sweden.</p>
+<p>We can load it by</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(SwarmSVM)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(svmguide1)</a></code></pre></div>
+<p>It is a list object. Let’s first take a look at the training data.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">head</span>(svmguide1[[<span class="dv">1</span>]])</a></code></pre></div>
 <pre><code>##      [,1]       [,2]      [,3]          [,4]      [,5]
 ## [1,]    1 0.17830158 0.8459425 -0.0003471568 0.5025830
 ## [2,]    1 0.09974321 0.7418535  0.0013642697 0.6631010
 ## [3,]    1 0.12155597 0.8184516 -0.0006077044 0.5615699
 ## [4,]    1 0.18806891 0.6310490  0.0008937012 0.7525998
 ## [5,]    1 0.26460236 0.3487087 -0.0012692003 0.8991030
-## [6,]    1 0.13390393 0.6548727 -0.0010820202 0.7437811
-</code></pre>
-
-<p>The first column contains the classification target value, the other columns contain the features. It is a binary classification task. The second part in the list is the test set: </p>
-
-<pre><code class="r">head(svmguide1[[2]])
-</code></pre>
-
+## [6,]    1 0.13390393 0.6548727 -0.0010820202 0.7437811</code></pre>
+<p>The first column contains the classification target value, the other columns contain the features. It is a binary classification task. The second part in the list is the test set:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(svmguide1[[<span class="dv">2</span>]])</a></code></pre></div>
 <pre><code>##      [,1]       [,2]      [,3]         [,4]      [,5]
 ## [1,]    0 0.04233811 0.2196920 -0.003501740 0.9746439
 ## [2,]    0 0.04233811 0.2196920 -0.003501740 0.9746439
 ## [3,]    0 0.01564010 0.7613563  0.002006680 0.6481419
 ## [4,]    0 0.03336976 0.2660178  0.004064065 0.9633818
 ## [5,]    0 0.02846241 0.3031386  0.003870255 0.9525135
-## [6,]    0 0.01345867 0.4843888 -0.002009264 0.8747470
-</code></pre>
-
+## [6,]    0 0.01345867 0.4843888 -0.002009264 0.8747470</code></pre>
 <p>We rename them with the following command:</p>
-
-<pre><code class="r">svmguide1.t = svmguide1[[2]]
-svmguide1 = svmguide1[[1]]
-</code></pre>
-
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">svmguide1.t =<span class="st"> </span>svmguide1[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">svmguide1 =<span class="st"> </span>svmguide1[[<span class="dv">1</span>]]</a></code></pre></div>
 <p>From now on, we have the training data set <code>svmguide1</code> and the test data set <code>svmguide1.t</code>.</p>
-
-<h1>Clustering Algorithm</h1>
-
+</div>
+<div id="clustering-algorithm" class="section level1">
+<h1><span class="header-section-number">3</span> Clustering Algorithm</h1>
 <p>In our pacakge, there are two main algorithms requiring clustering algorithm for the input data. Therefore we provide some clustering algorithms for users to choose from. Users can also implement their own functions and pass it to our algorithm.</p>
-
-<h4>Default Algorithms</h4>
-
+<div id="default-algorithms" class="section level4">
+<h4><span class="header-section-number">3.0.0.1</span> Default Algorithms</h4>
 <p>We now provide two algorithms existing in R:</p>
-
 <ul>
-<li>The default kmeans algorithm <code>stats::kmeans</code>, named as &ldquo;kmeans&rdquo;;</li>
-<li>The kernel kmeans algorithm <code>kernlab::kkmeans</code>, named as &ldquo;kernkmeans&rdquo;.</li>
+<li>The default kmeans algorithm <code>stats::kmeans</code>, named as “kmeans”;</li>
+<li>The kernel kmeans algorithm <code>kernlab::kkmeans</code>, named as “kernkmeans”.</li>
 </ul>
-
 <p>In <code>clusterSVM</code> and <code>dcSVM</code>, we offer an argument <code>cluster.method</code>, you could choose one of the two algorithms and pass its name to the argument.</p>
-
-<h4>Customization</h4>
-
+</div>
+<div id="customization" class="section level4">
+<h4><span class="header-section-number">3.0.0.2</span> Customization</h4>
 <p>We also offer arguments for users to pass their own implementation of the clustering algorithm: <code>cluster.fun</code> and <code>cluster.predict</code>.</p>
-
 <p><code>cluster.fun</code> is the clustering training function. It takes a function requiring the data and number of centers as the two main arguments. The output of this function should be an list object of the clustering result, while it has two fields:</p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li><code>object$cluster</code> as the clustering label on the input data.</li>
 <li><code>object$centers</code> as the clustering center matrix.</li>
 </ol>
-
 <p><code>cluster.predict</code> is the predicting algorithm on the trained clustering object. It takes a function requiring the data and trained clustering object from <code>cluster.fun</code> as the two main arguments. The output of this function should be simply a vector of tue clustering label on the input data.</p>
-
-<h1>Clustered Support Vector Machines</h1>
-
-<h4>Algorithm</h4>
-
+</div>
+</div>
+<div id="clustered-support-vector-machines" class="section level1">
+<h1><span class="header-section-number">4</span> Clustered Support Vector Machines</h1>
+<div id="algorithm" class="section level4">
+<h4><span class="header-section-number">4.0.0.1</span> Algorithm</h4>
 <p>The algorithm is straight forward:</p>
-
 <p><strong>Training</strong></p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li>Cluster the data. The default setting is <code>stats::kmeans</code>.</li>
 <li>Transform the data according to the Eq. (4) - Eq. (7) in the original paper.</li>
 <li>Solve the new problem with a linear svm from <code>LiblineaR::LiblineaR</code>.</li>
 </ol>
-
 <p><strong>Test</strong></p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li>Assign cluster label to each new data point, based on the clustering result from training.</li>
 <li>Transform the data according to the Eq. (4) - Eq. (7) in the original paper.</li>
 <li>Make prediction with the trained model.</li>
 </ol>
-
-<h4>Basic usage</h4>
-
+</div>
+<div id="basic-usage" class="section level4">
+<h4><span class="header-section-number">4.0.0.2</span> Basic usage</h4>
 <p>We demonstrate the usage of this function with the following code:</p>
-
-<pre><code class="r">csvm.obj = clusterSVM(x = svmguide1[,-1], y = svmguide1[,1], type = 1,
-                      valid.x = svmguide1.t[,-1],valid.y = svmguide1.t[,1], 
-                      seed = 1, verbose = 1, centers = 8)
-</code></pre>
-
-<pre><code>## Time for Clustering: 0.00700000000000012 secs
-</code></pre>
-
-<pre><code>## Time for Transforming: 0.0219999999999998 secs
-</code></pre>
-
-<pre><code>## Time for Liblinear: 0.184 secs
-</code></pre>
-
-<pre><code>## Time for Validation: 0.0270000000000001 secs
-</code></pre>
-
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>],<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
+<pre><code>## Time for Clustering: 0.00700000000000012 secs</code></pre>
+<pre><code>## Time for Transforming: 0.0209999999999999 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.156 secs</code></pre>
+<pre><code>## Time for Validation: 0.0110000000000001 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.242 secs
-</code></pre>
-
-<pre><code>## Accuracy Score: 0.81575
-</code></pre>
-
-<pre><code class="r">csvm.obj$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.81575
-</code></pre>
-
+## Total Time: 0.195 secs</code></pre>
+<pre><code>## Accuracy Score: 0.81575</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.81575</code></pre>
 <p>Here the parameters are grouped into four parts:</p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li><code>x</code> and <code>y</code> are the feature matric and target vector of the training data. <code>type</code> is specifying the mission and the type of the SVM.</li>
 <li><code>valid.x</code> and <code>valid.y</code> are the feature matric and target vector of the validation data.</li>
 <li><code>seed</code> is controlling the random seed to make the result reproducible. <code>verbose</code> is controlling the content of the output.</li>
 <li><code>centers</code> is the parameter passing to the cluster algorithm.</li>
 </ol>
-
 <p><strong>Dense and sparse input</strong></p>
-
 <p>The sample data set is in the format of sparse matrix.</p>
-
-<pre><code class="r">class(svmguide1)
-</code></pre>
-
-<pre><code>## [1] &quot;matrix&quot;
-</code></pre>
-
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">class</span>(svmguide1)</a></code></pre></div>
+<pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
 <p>The function takes a dense matrix or a sparse matrix as the input feature matrix. Therefore the following code gives you the same result.</p>
-
-<pre><code class="r">csvm.obj = clusterSVM(x = as.matrix(svmguide1[,-1]), y = svmguide1[,1], type = 1,
-                      valid.x = as.matrix(svmguide1.t[,-1]),valid.y = svmguide1.t[,1], 
-                      seed = 1, verbose = 1, centers = 8)
-</code></pre>
-
-<pre><code>## Time for Clustering: 0.00599999999999978 secs
-</code></pre>
-
-<pre><code>## Time for Transforming: 0.004 secs
-</code></pre>
-
-<pre><code>## Time for Liblinear: 0.2 secs
-</code></pre>
-
-<pre><code>## Time for Validation: 0.0140000000000002 secs
-</code></pre>
-
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">type =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">                      <span class="dt">valid.x =</span> <span class="kw">as.matrix</span>(svmguide1.t[,<span class="op">-</span><span class="dv">1</span>]),<span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">                      <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">verbose =</span> <span class="dv">1</span>, <span class="dt">centers =</span> <span class="dv">8</span>)</a></code></pre></div>
+<pre><code>## Time for Clustering: 0.00599999999999978 secs</code></pre>
+<pre><code>## Time for Transforming: 0.00800000000000001 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.129 secs</code></pre>
+<pre><code>## Time for Validation: 0.00800000000000001 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.225 secs
-</code></pre>
-
-<pre><code>## Accuracy Score: 0.81575
-</code></pre>
-
-<pre><code class="r">csvm.obj$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.81575
-</code></pre>
-
+## Total Time: 0.151 secs</code></pre>
+<pre><code>## Accuracy Score: 0.81575</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.81575</code></pre>
 <p><strong>Self-defined clustering algorithm</strong></p>
-
-<p>In <code>clusterSVM</code>, the clustering is a very important step. Therefore we don&#39;t restrict users to the <code>RcppMLPACK::mlKmeans</code> algorithm. Instead, we accept user-defined clustering algorithm as an argument.</p>
-
+<p>In <code>clusterSVM</code>, the clustering is a very important step. Therefore we don’t restrict users to the <code>RcppMLPACK::mlKmeans</code> algorithm. Instead, we accept user-defined clustering algorithm as an argument.</p>
 <p>Note that we require the output of the clustering algorithm contains two fields: <code>centers</code> and <code>cluster</code>. One example could be</p>
-
-<pre><code class="r">cluster.fun = stats::kmeans
-
-cluster.predict = function(x, cluster.object) {
-  centers = cluster.object$centers
-  eucliDist = function(x, centers) apply(centers, 1, function(C) colSums( (t(x)-C)^2 ))
-  euclidean.dist = eucliDist(x, centers)
-  result = max.col(-euclidean.dist)
-  return(result)
-}
-</code></pre>
-
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">cluster.fun =<span class="st"> </span>stats<span class="op">::</span>kmeans</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">cluster.predict =<span class="st"> </span><span class="cf">function</span>(x, cluster.object) {</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">  centers =<span class="st"> </span>cluster.object<span class="op">$</span>centers</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">  eucliDist =<span class="st"> </span><span class="cf">function</span>(x, centers) <span class="kw">apply</span>(centers, <span class="dv">1</span>, <span class="cf">function</span>(C) <span class="kw">colSums</span>( (<span class="kw">t</span>(x)<span class="op">-</span>C)<span class="op">^</span><span class="dv">2</span> ))</a>
+<a class="sourceLine" id="cb27-6" data-line-number="6">  euclidean.dist =<span class="st"> </span><span class="kw">eucliDist</span>(x, centers)</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">  result =<span class="st"> </span><span class="kw">max.col</span>(<span class="op">-</span>euclidean.dist)</a>
+<a class="sourceLine" id="cb27-8" data-line-number="8">  <span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb27-9" data-line-number="9">}</a></code></pre></div>
 <p>Here we use the default kmeans, and implement the prediction function. Once we have defined the algorithm, it is straight forward to pass it to <code>clusterSVM</code>:</p>
-
-<pre><code class="r">csvm.obj = clusterSVM(x = svmguide1[,-1], y = svmguide1[,1], centers = 8, seed = 1,
-                      cluster.fun = cluster.fun, cluster.predict = cluster.predict,
-                      valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1])
-</code></pre>
-
-<pre><code>## Time for Clustering: 0.0179999999999998 secs
-</code></pre>
-
-<pre><code>## Time for Transforming: 0.04 secs
-</code></pre>
-
-<pre><code>## Time for Liblinear: 0.325 secs
-</code></pre>
-
-<pre><code>## Time for Validation: 0.0390000000000001 secs
-</code></pre>
-
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">csvm.obj =<span class="st"> </span><span class="kw">clusterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">centers =</span> <span class="dv">8</span>, <span class="dt">seed =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">                      <span class="dt">cluster.fun =</span> cluster.fun, <span class="dt">cluster.predict =</span> cluster.predict,</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">                      <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Time for Clustering: 0.00600000000000023 secs</code></pre>
+<pre><code>## Time for Transforming: 0.00300000000000011 secs</code></pre>
+<pre><code>## Time for Liblinear: 0.131 secs</code></pre>
+<pre><code>## Time for Validation: 0.00700000000000012 secs</code></pre>
 <pre><code>## 
-## Total Time: 0.425 secs
-</code></pre>
-
-<pre><code>## Accuracy Score: 0.81575
-</code></pre>
-
-<pre><code class="r">csvm.obj$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.81575
-</code></pre>
-
-<h1>A Divide-and-Conquer Support Vector Machine</h1>
-
-<h4>Algorithm</h4>
-
+## Total Time: 0.148 secs</code></pre>
+<pre><code>## Accuracy Score: 0.81575</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">csvm.obj<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.81575</code></pre>
+</div>
+</div>
+<div id="a-divide-and-conquer-support-vector-machine" class="section level1">
+<h1><span class="header-section-number">5</span> A Divide-and-Conquer Support Vector Machine</h1>
+<div id="algorithm-1" class="section level4">
+<h4><span class="header-section-number">5.0.0.1</span> Algorithm</h4>
 <p>The algorithm could be described as the following:</p>
-
 <p><strong>Training</strong></p>
-
-<ol>
-<li>We cluster the data in a recursive manner: 
-
+<ol style="list-style-type: decimal">
+<li>We cluster the data in a recursive manner:
 <ul>
 <li>Cluster the data in <code>k</code> groups.</li>
 <li>In each groups, we keep cluster the data into <code>k</code> finer groups.</li>
@@ -471,7 +505,6 @@ cluster.predict = function(x, cluster.object) {
 </ul></li>
 <li>At the finest level, we train svm models</li>
 <li>At the <code>j</code>-th group on level <code>l</code>, we
-
 <ul>
 <li>Concatenate the <code>alpha</code> (coefficient on support vector) value from the subgroups of the <code>j</code>-th group</li>
 <li>Train the svm model with the <code>alpha</code> value initialized</li>
@@ -479,224 +512,121 @@ cluster.predict = function(x, cluster.object) {
 <li>Fine tune the <code>alpha</code> values by training an svm on all the support vectors of the whole data set.</li>
 <li>Train the final svm model with the <code>alpha</code> value</li>
 </ol>
-
 <p><strong>Test</strong></p>
-
 <p>There are two ways to do prediction.</p>
-
-<ol>
+<ol style="list-style-type: decimal">
 <li>Early Prediction
-
 <ul>
 <li>In early predicton on level <code>l</code>, we predict the clustering label at level <code>l</code> for the new input data.</li>
 <li>For data points belong to each subgroup, we make prediction using the corresponding svm model for this subgroup.</li>
 </ul></li>
 <li>Exact Prediction
-
 <ul>
 <li>We predict with the final svm model on the new input data.</li>
 </ul></li>
 </ol>
-
-<h4>Basic usage</h4>
-
+</div>
+<div id="basic-usage-1" class="section level4">
+<h4><span class="header-section-number">5.0.0.2</span> Basic usage</h4>
 <p>We demonstrate the usage of this function with the following code:</p>
-
-<pre><code class="r">dcsvm.model = dcSVM(x = svmguide1[,-1], y = svmguide1[,1],
-                    k = 4, max.levels = 4, seed = 0, cost = 32, gamma = 2,
-                    kernel = 3,early = 0, m = 800,
-                    valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1])
-</code></pre>
-
-<pre><code>## Finished clustering process in 0.0839999999999996 secs.
-</code></pre>
-
-<pre><code>## Finished training in level 4
-</code></pre>
-
-<pre><code>## Finished training in level 3
-</code></pre>
-
-<pre><code>## Finished training in level 2
-</code></pre>
-
-<pre><code>## Finished training in level 1
-</code></pre>
-
-<pre><code>## Finished svm training process in 0.769 secs.
-</code></pre>
-
-<pre><code>## Finished validation process in 0.0629999999999997 secs.
-</code></pre>
-
-<pre><code>## Finished the whole process in 0.918 secs.
-</code></pre>
-
-<pre><code class="r">dcsvm.model$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.81925
-</code></pre>
-
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">max.levels =</span> <span class="dv">4</span>, <span class="dt">seed =</span> <span class="dv">0</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">gamma =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">                    <span class="dt">kernel =</span> <span class="dv">3</span>,<span class="dt">early =</span> <span class="dv">0</span>, <span class="dt">m =</span> <span class="dv">800</span>,</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.0449999999999999 secs.</code></pre>
+<pre><code>## Finished training in level 4</code></pre>
+<pre><code>## Finished training in level 3</code></pre>
+<pre><code>## Finished training in level 2</code></pre>
+<pre><code>## Finished training in level 1</code></pre>
+<pre><code>## Finished svm training process in 0.612 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0979999999999999 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.756 secs.</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.81925</code></pre>
 <p>Here the parameters can be grouped into five parts.</p>
-
-<ol>
-<li><code>x</code> and <code>y</code> are the feature matric and target vector of the training data. </li>
+<ol style="list-style-type: decimal">
+<li><code>x</code> and <code>y</code> are the feature matric and target vector of the training data.</li>
 <li><code>valid.x</code> and <code>valid.y</code> are the feature matric and target vector of the validation data.</li>
 <li><code>seed</code> is controlling the random seed to make the result reproducible.</li>
-<li><code>k</code>, <code>max.levels</code> controls the size of the subproblem tree. </li>
-<li><code>early</code> is the variable specifying whether we use early prediction or not. If <code>early = 0</code> then we don&#39;t use early prediction strategy, if <code>early = l</code> then we perform the early prediction at level <code>l</code>.</li>
+<li><code>k</code>, <code>max.levels</code> controls the size of the subproblem tree.</li>
+<li><code>early</code> is the variable specifying whether we use early prediction or not. If <code>early = 0</code> then we don’t use early prediction strategy, if <code>early = l</code> then we perform the early prediction at level <code>l</code>.</li>
 </ol>
-
 <p><strong>Early Prediction</strong></p>
-
 <p>We can do the early prediction by the following command:</p>
-
-<pre><code class="r">dcsvm.model = dcSVM(x = as.matrix(svmguide1[,-1]), y = svmguide1[,1], 
-                    k = 10, max.levels = 1, 
-                    early = 1, gamma = 2, cost = 32, tolerance = 1e-2, m = 800, 
-                    valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1])
-</code></pre>
-
-<pre><code>## Finished clustering process in 0.00899999999999945 secs.
-</code></pre>
-
-<pre><code>## Finished training in level 1
-</code></pre>
-
-<pre><code>## Finished svm training process in 0.0990000000000002 secs.
-</code></pre>
-
-<pre><code>## Finished validation process in 0.0219999999999994 secs.
-</code></pre>
-
-<pre><code>## Finished the whole process in 0.130999999999999 secs.
-</code></pre>
-
-<pre><code class="r">dcsvm.model$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.86075
-</code></pre>
-
-<pre><code class="r">dcsvm.model$time$total.time
-</code></pre>
-
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, </a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.00599999999999978 secs.</code></pre>
+<pre><code>## Finished training in level 1</code></pre>
+<pre><code>## Finished svm training process in 0.0720000000000001 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0179999999999998 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.0959999999999996 secs.</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.86075</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##   0.131
-</code></pre>
-
-<p>It is faster because we can stop at a level, and don&#39;t need to train SVMs for data of larger size.</p>
-
+##   0.096</code></pre>
+<p>It is faster because we can stop at a level, and don’t need to train SVMs for data of larger size.</p>
 <p><strong>Exact Prediction</strong></p>
-
 <p>To make the model more accurate, we can also perform the exact training by:</p>
-
-<pre><code class="r">dcsvm.model = dcSVM(x = as.matrix(svmguide1[,-1]), y = svmguide1[,1], 
-                    k = 10, max.levels = 1, 
-                    early = 1, gamma = 2, cost = 32, tolerance = 1e-2, m = 800, 
-                    valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1])
-</code></pre>
-
-<pre><code>## Finished clustering process in 0.00800000000000001 secs.
-</code></pre>
-
-<pre><code>## Finished training in level 1
-</code></pre>
-
-<pre><code>## Finished svm training process in 0.104 secs.
-</code></pre>
-
-<pre><code>## Finished validation process in 0.0270000000000001 secs.
-</code></pre>
-
-<pre><code>## Finished the whole process in 0.140000000000001 secs.
-</code></pre>
-
-<pre><code class="r">dcsvm.model$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.85975
-</code></pre>
-
-<pre><code class="r">dcsvm.model$time$total.time
-</code></pre>
-
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">dcsvm.model =<span class="st"> </span><span class="kw">dcSVM</span>(<span class="dt">x =</span> <span class="kw">as.matrix</span>(svmguide1[,<span class="op">-</span><span class="dv">1</span>]), <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], </a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">                    <span class="dt">k =</span> <span class="dv">10</span>, <span class="dt">max.levels =</span> <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">                    <span class="dt">early =</span> <span class="dv">1</span>, <span class="dt">gamma =</span> <span class="dv">2</span>, <span class="dt">cost =</span> <span class="dv">32</span>, <span class="dt">tolerance =</span> <span class="fl">1e-2</span>, <span class="dt">m =</span> <span class="dv">800</span>, </a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>])</a></code></pre></div>
+<pre><code>## Finished clustering process in 0.00599999999999978 secs.</code></pre>
+<pre><code>## Finished training in level 1</code></pre>
+<pre><code>## Finished svm training process in 0.0750000000000002 secs.</code></pre>
+<pre><code>## Finished validation process in 0.0190000000000001 secs.</code></pre>
+<pre><code>## Finished the whole process in 0.1 secs.</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dcsvm.model<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.85975</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">dcsvm.model<span class="op">$</span>time<span class="op">$</span>total.time</a></code></pre></div>
 <pre><code>## elapsed 
-##    0.14
-</code></pre>
-
+##     0.1</code></pre>
 <p>This is more accurate but the time is longer. It a balance between the accuracy and the time complexity.</p>
-
-<h1>The Mixture of SVM Experts with a Gater Function</h1>
-
-<h4>Algorithm</h4>
-
+</div>
+</div>
+<div id="the-mixture-of-svm-experts-with-a-gater-function" class="section level1">
+<h1><span class="header-section-number">6</span> The Mixture of SVM Experts with a Gater Function</h1>
+<div id="algorithm-2" class="section level4">
+<h4><span class="header-section-number">6.0.0.1</span> Algorithm</h4>
 <p>The algorithm can be described in the following iterative framework:</p>
-
 <p><strong>Training</strong></p>
-
-<ol>
-<li>Split the data into \(M\) random subsets of nearly \(N/M\).</li>
-<li>Train \(M\) svm experts seperately on each subset.</li>
+<ol style="list-style-type: decimal">
+<li>Split the data into <span class="math inline">\(M\)</span> random subsets of nearly <span class="math inline">\(N/M\)</span>.</li>
+<li>Train <span class="math inline">\(M\)</span> svm experts seperately on each subset.</li>
 <li>Each svm expert predict on the entire training data set.</li>
 <li>Train a neural network model minimizing the Eq. (7) in the original paper.</li>
 <li>Reconstruct subsets: Ffor each data point
-
 <ul>
 <li>sort the experts in descending order according to the weight from the neural network</li>
 <li>assign the example to the first expert in the list which has less than (N/M+c) data points.</li>
 </ul></li>
 <li>Goto step 2 until a termination criterion is fulfilled.</li>
 </ol>
-
 <p><strong>Test</strong></p>
-
-<ol>
-<li>Make prediction on the test data by the \(M\) experts.</li>
-<li>Make prediction on the experts&#39; output by the trained neural network model.</li>
+<ol style="list-style-type: decimal">
+<li>Make prediction on the test data by the <span class="math inline">\(M\)</span> experts.</li>
+<li>Make prediction on the experts’ output by the trained neural network model.</li>
 </ol>
-
-<h4>Basic usage</h4>
-
-<pre><code class="r">gaterSVM.model = gaterSVM(x = svmguide1[,-1], y = svmguide1[,1], hidden = 10, seed = 0,
-                          m = 10, max.iter = 3, learningrate = 0.01, threshold = 1, stepmax = 1000,
-                          valid.x = svmguide1.t[,-1], valid.y = svmguide1.t[,1], verbose = TRUE)
-</code></pre>
-
-<pre><code>## Finished training for expert 1
-</code></pre>
-
-<pre><code>## Finished training for expert 2
-</code></pre>
-
-<pre><code>## Finished training for expert 3
-</code></pre>
-
-<pre><code>## Finished training for expert 4
-</code></pre>
-
-<pre><code>## Finished training for expert 5
-</code></pre>
-
-<pre><code>## Finished training for expert 6
-</code></pre>
-
-<pre><code>## Finished training for expert 7
-</code></pre>
-
-<pre><code>## Finished training for expert 8
-</code></pre>
-
-<pre><code>## Finished training for expert 9
-</code></pre>
-
-<pre><code>## Finished training for expert 10
-</code></pre>
-
-<pre><code>## Experts Training Time: 0.171
-</code></pre>
-
+</div>
+<div id="basic-usage-2" class="section level4">
+<h4><span class="header-section-number">6.0.0.2</span> Basic usage</h4>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">gaterSVM.model =<span class="st"> </span><span class="kw">gaterSVM</span>(<span class="dt">x =</span> svmguide1[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">y =</span> svmguide1[,<span class="dv">1</span>], <span class="dt">hidden =</span> <span class="dv">10</span>, <span class="dt">seed =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2">                          <span class="dt">m =</span> <span class="dv">10</span>, <span class="dt">max.iter =</span> <span class="dv">3</span>, <span class="dt">learningrate =</span> <span class="fl">0.01</span>, <span class="dt">threshold =</span> <span class="dv">1</span>, <span class="dt">stepmax =</span> <span class="dv">1000</span>,</a>
+<a class="sourceLine" id="cb68-3" data-line-number="3">                          <span class="dt">valid.x =</span> svmguide1.t[,<span class="op">-</span><span class="dv">1</span>], <span class="dt">valid.y =</span> svmguide1.t[,<span class="dv">1</span>], <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Finished training for expert 1</code></pre>
+<pre><code>## Finished training for expert 2</code></pre>
+<pre><code>## Finished training for expert 3</code></pre>
+<pre><code>## Finished training for expert 4</code></pre>
+<pre><code>## Finished training for expert 5</code></pre>
+<pre><code>## Finished training for expert 6</code></pre>
+<pre><code>## Finished training for expert 7</code></pre>
+<pre><code>## Finished training for expert 8</code></pre>
+<pre><code>## Finished training for expert 9</code></pre>
+<pre><code>## Finished training for expert 10</code></pre>
+<pre><code>## Experts Training Time: 0.207</code></pre>
 <pre><code>## 
 Step: 1     Loss: 2.14497322        , threshold: 718.4687385    , min threshold: 288.9347304
 Step: 2     Loss: 0.5262195869      , threshold: 112.7662234    , min threshold: 112.7662234
@@ -1696,48 +1626,20 @@ Step: 995   Loss: 0.2058257606      , threshold: 2.365002634    , min threshold:
 Step: 996   Loss: 0.2057863355      , threshold: 2.518130146    , min threshold: 1.069492498
 Step: 997   Loss: 0.2057577345      , threshold: 1.785005726    , min threshold: 1.069492498
 Step: 998   Loss: 0.2057980289      , threshold: 38.89459237    , min threshold: 1.069492498
-Step: 999   Loss: 0.2057398644      , threshold: 4.114715674    , min threshold: 1.069492498
-</code></pre>
-
-<pre><code>## Finish gater training.
-</code></pre>
-
-<pre><code>## Gater Neural Net Training Time: 6.046
-</code></pre>
-
-<pre><code>## Finished training for expert 1
-</code></pre>
-
-<pre><code>## Finished training for expert 2
-</code></pre>
-
-<pre><code>## Finished training for expert 3
-</code></pre>
-
-<pre><code>## Finished training for expert 4
-</code></pre>
-
-<pre><code>## Finished training for expert 5
-</code></pre>
-
-<pre><code>## Finished training for expert 6
-</code></pre>
-
-<pre><code>## Finished training for expert 7
-</code></pre>
-
-<pre><code>## Finished training for expert 8
-</code></pre>
-
-<pre><code>## Finished training for expert 9
-</code></pre>
-
-<pre><code>## Finished training for expert 10
-</code></pre>
-
-<pre><code>## Experts Training Time: 0.135
-</code></pre>
-
+Step: 999   Loss: 0.2057398644      , threshold: 4.114715674    , min threshold: 1.069492498</code></pre>
+<pre><code>## Finish gater training.</code></pre>
+<pre><code>## Gater Neural Net Training Time: 3.454</code></pre>
+<pre><code>## Finished training for expert 1</code></pre>
+<pre><code>## Finished training for expert 2</code></pre>
+<pre><code>## Finished training for expert 3</code></pre>
+<pre><code>## Finished training for expert 4</code></pre>
+<pre><code>## Finished training for expert 5</code></pre>
+<pre><code>## Finished training for expert 6</code></pre>
+<pre><code>## Finished training for expert 7</code></pre>
+<pre><code>## Finished training for expert 8</code></pre>
+<pre><code>## Finished training for expert 9</code></pre>
+<pre><code>## Finished training for expert 10</code></pre>
+<pre><code>## Experts Training Time: 0.173</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.5654535782      , threshold: 460.1478033    , min threshold: 15.14802317
 Step: 2     Loss: 0.578643559       , threshold: 27.15821913    , min threshold: 15.14802317
@@ -2737,48 +2639,20 @@ Step: 995   Loss: 0.15411746        , threshold: 10.49815348    , min threshold:
 Step: 996   Loss: 0.1541063961      , threshold: 3.233896044    , min threshold: 2.902258797
 Step: 997   Loss: 0.1540838699      , threshold: 8.352716088    , min threshold: 2.902258797
 Step: 998   Loss: 0.1540599642      , threshold: 6.812435394    , min threshold: 2.902258797
-Step: 999   Loss: 0.1540342125      , threshold: 7.922437305    , min threshold: 2.902258797
-</code></pre>
-
-<pre><code>## Finish gater training.
-</code></pre>
-
-<pre><code>## Gater Neural Net Training Time: 6.152
-</code></pre>
-
-<pre><code>## Finished training for expert 1
-</code></pre>
-
-<pre><code>## Finished training for expert 2
-</code></pre>
-
-<pre><code>## Finished training for expert 3
-</code></pre>
-
-<pre><code>## Finished training for expert 4
-</code></pre>
-
-<pre><code>## Finished training for expert 5
-</code></pre>
-
-<pre><code>## Finished training for expert 6
-</code></pre>
-
-<pre><code>## Finished training for expert 7
-</code></pre>
-
-<pre><code>## Finished training for expert 8
-</code></pre>
-
-<pre><code>## Finished training for expert 9
-</code></pre>
-
-<pre><code>## Finished training for expert 10
-</code></pre>
-
-<pre><code>## Experts Training Time: 0.111999999999998
-</code></pre>
-
+Step: 999   Loss: 0.1540342125      , threshold: 7.922437305    , min threshold: 2.902258797</code></pre>
+<pre><code>## Finish gater training.</code></pre>
+<pre><code>## Gater Neural Net Training Time: 3.312</code></pre>
+<pre><code>## Finished training for expert 1</code></pre>
+<pre><code>## Finished training for expert 2</code></pre>
+<pre><code>## Finished training for expert 3</code></pre>
+<pre><code>## Finished training for expert 4</code></pre>
+<pre><code>## Finished training for expert 5</code></pre>
+<pre><code>## Finished training for expert 6</code></pre>
+<pre><code>## Finished training for expert 7</code></pre>
+<pre><code>## Finished training for expert 8</code></pre>
+<pre><code>## Finished training for expert 9</code></pre>
+<pre><code>## Finished training for expert 10</code></pre>
+<pre><code>## Experts Training Time: 0.154</code></pre>
 <pre><code>## 
 Step: 1     Loss: 0.6097549704      , threshold: 122.0938077    , min threshold: 122.0938077
 Step: 2     Loss: 0.5645530774      , threshold: 477.8983294    , min threshold: 122.0938077
@@ -3778,55 +3652,53 @@ Step: 995   Loss: 0.1633618385      , threshold: 6.830521761    , min threshold:
 Step: 996   Loss: 0.1633228174      , threshold: 6.048596278    , min threshold: 2.574445474
 Step: 997   Loss: 0.1632760058      , threshold: 6.742892787    , min threshold: 2.574445474
 Step: 998   Loss: 0.1632401424      , threshold: 7.972201953    , min threshold: 2.574445474
-Step: 999   Loss: 0.1632021721      , threshold: 7.382592704    , min threshold: 2.574445474
-</code></pre>
-
-<pre><code>## Finish gater training.
-</code></pre>
-
-<pre><code>## Gater Neural Net Training Time: 6.785
-</code></pre>
-
-<pre><code>## Finished validation process in 0.172000000000001 secs.
-</code></pre>
-
-<pre><code>## Finished the whole process in 19.593 secs.
-</code></pre>
-
-<pre><code class="r">gaterSVM.model$valid.score
-</code></pre>
-
-<pre><code>## [1] 0.9325
-</code></pre>
-
-<p>The parameters can be categorized into the following groups: </p>
-
-<ol>
-<li><code>x</code> and <code>y</code> are the feature matric and target vector of the training data. </li>
+Step: 999   Loss: 0.1632021721      , threshold: 7.382592704    , min threshold: 2.574445474</code></pre>
+<pre><code>## Finish gater training.</code></pre>
+<pre><code>## Gater Neural Net Training Time: 3.43</code></pre>
+<pre><code>## Finished validation process in 0.165000000000001 secs.</code></pre>
+<pre><code>## Finished the whole process in 10.91 secs.</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">gaterSVM.model<span class="op">$</span>valid.score</a></code></pre></div>
+<pre><code>## [1] 0.9325</code></pre>
+<p>The parameters can be categorized into the following groups:</p>
+<ol style="list-style-type: decimal">
+<li><code>x</code> and <code>y</code> are the feature matric and target vector of the training data.</li>
 <li><code>valid.x</code> and <code>valid.y</code> are the feature matric and target vector of the validation data.</li>
 <li><code>seed</code> is controlling the random seed to make the result reproducible. <code>verbose</code> is controlling the content of the output.</li>
-<li><code>m</code>, <code>max.iter</code> controls the iteration of &ldquo;experts-gater&rdquo; process.</li>
+<li><code>m</code>, <code>max.iter</code> controls the iteration of “experts-gater” process.</li>
 <li><code>hidden</code>, <code>learningrate</code>, <code>threshold</code>, <code>stepmax</code> are parameters for the neural network model.</li>
 </ol>
-
-<h1>Benchmarking</h1>
-
-<p>We offer benchmark codes to compare the performance and efficiency of our implementation. You can find the codes under <code>inst/benchmark</code>. </p>
-
+</div>
+</div>
+<div id="benchmarking" class="section level1">
+<h1><span class="header-section-number">7</span> Benchmarking</h1>
+<p>We offer benchmark codes to compare the performance and efficiency of our implementation. You can find the codes under <code>inst/benchmark</code>.</p>
 <ul>
 <li><code>utils.R</code> contains helper functions to prepare the data.</li>
 <li><code>preprocess_data.R</code> contains codes that prepares the data for the other benchmark codes.</li>
 <li>The other four files contains the benchmark codes:
-
 <ul>
 <li><code>clustered_SVM.R</code> contains simple codes for different data sets. <code>clustered_SVM_Repeat.R</code> contains repeated experiments and measures on the average performance of <code>clusterSVM</code>, and comparison against <code>LiblineaR::LiblineaR</code> and <code>e1071::svm</code>.</li>
 <li><code>dc_SVM.R</code> contains experiments and measures on the performance of <code>dcSVM</code>, and comparison against <code>e1071::svm</code>.</li>
 <li><code>gater_SVM.R</code> contains experiments and measures on the performance of <code>gaterSVM</code>, and comparison against <code>e1071::svm</code>.</li>
 </ul></li>
 </ul>
-
 <p>For some experiments running in a reasonable time, we have already generated some results. Those results are subjected to changes in the machine, system environment and the implementation.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 </body>
-
 </html>

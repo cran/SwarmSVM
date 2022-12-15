@@ -46,6 +46,10 @@ test_that("Performance",{
   preds = predict(model2, svmguide1.t[,-1])
   score = sum(diag(table(preds,svmguide1.t[,1])))/nrow(svmguide1.t)
   expect_true(score>0.8)
+  
+  # Running time is not so consistent
+  # expect_true(time.elapse3 > time.elapse1 && time.elapse1 > time.elapse2)
+  expect_true(time.elapse3 > time.elapse2 && time.elapse1 > time.elapse2)
 })
 
 
